@@ -14,12 +14,17 @@ module.exports = function(placeNode){
 		(doc.head || doc.getElementsByTagName("head")[0]).appendChild(styleNode);
 	<$ } $>
 
-	var node = base.toNode('<$= GlobalData.html.replace(/\\/g, "\\\\").replace(/'/g, "\\'") $>');
+	var node = base.toNode('<$= GlobalData.html.replace(/\\/g, "\\\\").replace(/'/g, "\\'") $>'),
+		_childNodes = node.childNodes,
+		childNodes = [];
+	for(var i = 0, l = _childNodes.length; i < l; i ++){
+		childNodes[i] = _childNodes[i];
+	}
 	placeNode.parentNode.replaceChild(node, placeNode);
 
 	return new js({
-		node: node,
+		node: childNodes,
 		styleNode: styleNode,
-		nodes: base.parseNode(node)
+		nodes: base.parseNode(childNodes)
 	});
 };

@@ -17,12 +17,22 @@ module.exports = {
         return target;
     },
 	parseNode: function(node){
-		var _nodes = node.getElementsByTagName("*"),
-			nodes = {},
-			marker;
-		for(var i = 0, l = _nodes.length; i < l; i ++){
-			if(marker = _nodes[i].getAttribute("marker")){
-				nodes[marker] = _nodes[i];
+		var i,
+			l,
+			nodes = {};
+
+		if(node instanceof Array){
+			var self = arguments.callee;
+			for(i = 0, l = node.length; i < l; i ++){
+				this.extend(nodes, self(node[i]));
+			}
+		}else{
+			var _nodes = node.getElementsByTagName("*"),
+				marker;
+			for(var i = 0, l = _nodes.length; i < l; i ++){
+				if(marker = _nodes[i].getAttribute("marker")){
+					nodes[marker] = _nodes[i];
+				}
 			}
 		}
 		return nodes;

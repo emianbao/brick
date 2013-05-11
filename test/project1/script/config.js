@@ -23,8 +23,7 @@ module.exports = {
 	})({
 		"index": {
 			"index.js": [
-				'view/index/template/list.tpl',
-				'view/index/chtml/filter/filter.chtml'
+				'view/index/index.js'
 			]
 		}
 	})

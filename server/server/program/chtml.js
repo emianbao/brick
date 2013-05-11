@@ -1,4 +1,4 @@
-var chtmlParse = require("module/chtml/chtml-parse.js"),
+var chtmlParse = require("../../module/chtml/chtml-parse.js"),
 	mime = require("../mime"),
 	seajs = require("./seajs");
 

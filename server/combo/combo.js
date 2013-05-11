@@ -58,7 +58,7 @@ module.exports = function(files, projectConfig){
 				pathname = baseScriptRoot + "/" + pathname;
 			}
 
-			if(!status[pathname]){
+			if(!(depsStatus[i] = status[pathname])){
 				depsStatus[i] = status[pathname] = hander ++;
 
 				ext = path.extname(pathname);
@@ -81,8 +81,6 @@ module.exports = function(files, projectConfig){
 					failList.push(pathname);
 					console.log("fail ext:" + pathname);
 				}
-			}else{
-				depsStatus[i] = false;
 			}
 		}
 		return depsStatus;
