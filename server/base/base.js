@@ -29,6 +29,9 @@ module.exports = {
 		}else{
 			var _nodes = node.getElementsByTagName("*"),
 				marker;
+			if(marker = node.getAttribute("marker")){
+				nodes[marker] = node;
+			}
 			for(var i = 0, l = _nodes.length; i < l; i ++){
 				if(marker = _nodes[i].getAttribute("marker")){
 					nodes[marker] = _nodes[i];
@@ -43,7 +46,7 @@ module.exports = {
         div.innerHTML = str;
         var childNodes = div.childNodes;
         for(var i = 0, l = childNodes.length; i < l; i ++){
-            documentFragment.appendChild(childNodes[i]);
+            documentFragment.appendChild(childNodes[0]);
         }
         div = null;
         return documentFragment;

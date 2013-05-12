@@ -1,28 +1,6 @@
 html{background-color: #333;font-size: 12px;}
 body{padding: 0;margin: 0;}
-.header{
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 40px;
-	background-color:#8AC340;
-	background:-webkit-gradient(linear, 0 0, 0 100%, from(#8ac340), to(#78ae32));
-	box-shadow: 0 0 10px rgba(0,0,0,0.5);
-	z-index: 1000;
-	border-bottom: 2px solid #eee;
-}
-.footer{
-	position:absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	height:50px;
-	/*background-color:#8AC340;background:-webkit-gradient(linear, 0 0, 0 100%, from(#8ac340), to(#78ae32));border-bottom:3px solid #BCE08A;*/
-	background-color:#333;
-	border-top:3px solid #666;
-	/*box-shadow: 0 0 10px rgba(0,0,0,1);*/
-}
+
 .folder-name,
 .file{display: block;padding: 3px 10px 3px 30px;cursor: pointer;}
 .file{background: url(pic/file.png) no-repeat 10px 50%;}
@@ -34,67 +12,3 @@ body{padding: 0;margin: 0;}
 	background-position: 10px 50%;
 }
 .folder-close .folder-content{display: none;}
-
-.black-tree{color: #333;}
-.black-tree .file{background-image: url(/pic/file-333.png);}
-.black-tree .folder-content{border-color: #ddd}
-.black-tree .folder-open .folder-name{
-	background-image: url(/pic/close-333.png);
-}
-.black-tree .folder-close .folder-name{
-	background-image: url(/pic/open-333.png);
-}
-.black-tree .folder-name:hover,
-.black-tree .file:hover{background-color: #eee;}
-.black-tree .checked{background: url(/pic/file-checked.png) no-repeat 10px 50%;color: #f90;cursor: default;}
-.black-tree .checked:hover{background-color: #fff;}
-
-.white-tree{color: #ccc;}
-.white-tree .file{background-image: url(/pic/file-999.png);}
-.white-tree .folder-content{border-color: #222}
-.white-tree .folder-open .folder-name{
-	background-image: url(/pic/close-ccc.png);
-}
-.white-tree .folder-close .folder-name{
-	background-image: url(/pic/open-ccc.png);
-}
-.white-tree .folder-name:hover,
-.white-tree .file:hover{background-color: #222;}
-.white-tree .checked{background: url(/pic/file-checked.png) no-repeat 10px 50%;color: #f90;cursor: default;}
-.white-tree .checked:hover{background-color: #333;}
-
-.button{
-	display:inline-block;
-	height:30px;
-	padding: 0 30px;
-	font:14px/30px 微软雅黑;
-	color:#fff;
-	background-color: #8ac340;
-	background:-webkit-gradient(linear, 0 0, 0 100%, from(#8ac340), to(#71a735));
-	background:-moz-linear-gradient(top, #8ac340, #71a735);
-	border-color:#8ac340;
-	border-radius:5px;
-	cursor:pointer;
-}
-.button:hover{
-	background-color: #f90;
-	background:-webkit-gradient(linear, 0 0, 0 100%, from(#f90), to(#da8302));
-	background:-moz-linear-gradient(top, #f90, #da8302);
-	border-color:#f90;
-}
-.input-label{cursor: pointer;padding: 5px;margin-right: 10px;}
-.input-label:hover{border-bottom: 1px dashed #ddd;}
-.input-label input{margin-right: 5px;vertical-align: middle;}
-
-.main-nav{
-	position:absolute;left:200px;top:0;line-height:40px;
-}
-.main-nav a{
-	float:left;font:14px/40px 微软雅黑;color:#fff;text-decoration: none;padding:0 20px;
-}
-.main-nav a:hover{
-	background:-webkit-gradient(linear, 0 0, 0 100%, from(#a1ce65), to(#94bf5b));
-}
-.main-nav a.current{
-	color:#333;background:-webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#eee));border:1px solid #fff;border-width:0 1px;text-shadow:0 1px 1px #fff;
-}

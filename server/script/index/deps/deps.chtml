@@ -1,0 +1,7 @@
+<$css= ./deps.css $>
+<$js= ./deps.js $>
+
+<div class="deps">
+	<div marker="src-tree"></div>
+	<div marker="deps-tree"></div>
+</div>

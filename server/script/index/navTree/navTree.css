@@ -1,0 +1,47 @@
+.nav-tree{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height:100%;
+	width: 300px;
+	overflow: hidden;
+	background-color: #fff;
+	color: #333;
+}
+.nav-tree .tree{
+	height: 100%;
+	overflow: hidden;
+}
+.nav-tree .tree-content{
+	padding: 10px;
+}
+.nav-tree .scrollbar{
+	position:absolute;
+	top:0;
+	right:0;
+	width:8px;
+	height:100%;
+	background-color:#eee;
+}
+.nav-tree .scrollbar-btn{
+	position:absolute;
+	left:0;
+	top:0px;
+	width:8px;
+	height:100px;
+	background-color:#999;
+	border-radius:4px;
+}
+
+.nav-tree .file{background-image: url(/pic/file-333.png);}
+.nav-tree .folder-content{border-color: #ddd}
+.nav-tree .folder-open .folder-name{
+	background-image: url(/pic/close-333.png);
+}
+.nav-tree .folder-close .folder-name{
+	background-image: url(/pic/open-333.png);
+}
+.nav-tree .folder-name:hover,
+.nav-tree .file:hover{background-color: #eee;}
+.nav-tree .current{background: url(/pic/file-checked.png) no-repeat 10px 50%;color: #f90;cursor: default;}
+.nav-tree .current:hover{background-color: #fff;}

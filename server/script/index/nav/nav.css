@@ -1,0 +1,24 @@
+.nav{
+	height: 30px;
+	line-height: 30px;
+	background-color:#fafafa;
+	border-bottom:1px solid #ddd;
+	padding: 0 20px;
+}
+.nav a{
+	float: left;
+	font:14px/30px 微软雅黑;
+	padding: 0 30px;
+	color: #333;
+	cursor: pointer;
+}
+.nav a:hover{
+	background-color: #ddd;
+}
+.nav a.current{
+	/*background-color:#333;
+	color: #fff;*/
+	background-color: #fafafa;
+	color: #f90;
+	cursor: default;
+}

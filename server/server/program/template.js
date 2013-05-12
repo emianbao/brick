@@ -1,7 +1,7 @@
 /**
  * 模版文件处理
  */
-var parseTemplate = require("module/template.js"),
+var parseTemplate = require("../../module/template.js"),
 	mime = require("../mime"),
 	seajs = require("./seajs");
 module.exports = function(request, response, other){

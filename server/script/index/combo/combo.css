@@ -1,0 +1,41 @@
+.combo{
+	position: absolute;
+	width: 100%;
+	top:62px;
+	bottom: 61px;
+}
+.combo .tool{
+	position: absolute;
+	height: 30px;
+	padding: 15px 20px;
+	left: 0;
+	right: 0;
+	bottom: -61px;
+	border-top:1px solid #fff;
+	background-color: #333;
+	text-align: right;
+}
+
+.button{
+	display:inline-block;
+	height:30px;
+	padding: 0 30px;
+	font:14px/30px 微软雅黑;
+	color:#fff;
+	background-color: #8ac340;
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#8ac340), to(#71a735));
+	background:-moz-linear-gradient(top, #8ac340, #71a735);
+	border-color:#8ac340;
+	border-radius:5px;
+	cursor:pointer;
+	margin-right: 10px;
+}
+.button:hover{
+	background-color: #f90;
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#f90), to(#da8302));
+	background:-moz-linear-gradient(top, #f90, #da8302);
+	border-color:#f90;
+}
+.input-label{cursor: pointer;padding: 5px;margin-right: 10px;}
+.input-label:hover{border-bottom: 1px dashed #ddd;}
+.input-label input{margin-right: 5px;vertical-align: middle;}

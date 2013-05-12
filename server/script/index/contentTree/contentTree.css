@@ -1,0 +1,45 @@
+.content-tree{
+	position: absolute;
+	left: 300px;
+	top: 0;
+	right: 0;
+	height: 100%;
+	color: #ccc;
+}
+.content-tree .tree{
+	height: 100%;
+	overflow: hidden;
+}
+.content-tree .tree-content{
+	padding: 10px;
+}
+.content-tree .scrollbar{
+	position:absolute;
+	top:0;
+	right:0;
+	width:8px;
+	height:100%;
+	background-color:#444;
+}
+.content-tree .scrollbar-btn{
+	position:absolute;
+	left:0;
+	top:0px;
+	width:8px;
+	background-color:#999;
+	border-radius:4px;
+}
+
+
+.content-tree .file{background-image: url(/pic/file-999.png);}
+.content-tree .folder-content{border-color: #222}
+.content-tree .folder-open .folder-name{
+	background-image: url(/pic/close-ccc.png);
+}
+.content-tree .folder-close .folder-name{
+	background-image: url(/pic/open-ccc.png);
+}
+.content-tree .folder-name:hover,
+.content-tree .file:hover{background-color: #222;}
+.content-tree .checked{background: url(/pic/file-checked.png) no-repeat 10px 50%;color: #f90;cursor: default;}
+.content-tree .checked:hover{background-color: #333;}

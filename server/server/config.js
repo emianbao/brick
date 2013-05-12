@@ -45,5 +45,5 @@ module.exports = {
 		ext: ["chtml"]
 	}]),
 	// 默认页面
-	default: "js/manage/index.html"
+	default: "/index.html"
 };

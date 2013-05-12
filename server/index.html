@@ -3,51 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <title>模块化开发框架 - brick</title>
-    <link rel="stylesheet" type="text/css" href="style/base.css" />
     <link rel="stylesheet" type="text/css" href="style/index.css" />
 </head>
 <body>
-<div class="menu">
-	<a>项目</a>
-</div>
-<div class="nav">
-	<a href="index.html" class="current">发布</a>
-	<a href="deps.html">依赖查看</a>
-</div>
-<div id="min" class="black-tree" style="position:absolute;left:0;top:42px;bottom:53px;overflow:hidden;width:320px;border-right:0px solid #ddd;background-color:#fff;">
-	<div marker="box" style="height:100%;overflow:hidden;">
-		<div marker="content" style="padding:10px;"></div>
-	</div>
-	<div marker="scrollbar" style="position:absolute;top:0;right:0;width:8px;height:100%;background-color:#eee;">
-		<div marker="scrollbar-btn" style="position:absolute;left:0;top:0px;width:8px;height:100px;background-color:#999;border-radius:4px;"></div>
-	</div>
-</div>
-<div class="white-tree" style="position:absolute;left:320px;right:0;top:42px;bottom:53px;overflow:hidden;">
-	<div id="combo" style="position:absolute;top:0;bottom:0;width:100%;">
-		<div marker="box" style="height:100%;overflow:hidden;">
-			<div marker="content" style="padding:10px;min-height:300px;">
-			</div>
-			<div style="position:absolute;right:20px;top:10px;">
-				<label class="input-label">
-					<input marker="zip" type="checkbox" name="zip" checked="checked" />压缩
-				</label>
-				<a marker="combo" class="button">合并</a>
-			</div>
-		</div>
-		<div marker="scrollbar" style="position:absolute;top:0;right:0;width:8px;height:100%;background-color:#444;">
-			<div marker="scrollbar-btn" style="position:absolute;left:0;top:0px;width:8px;background-color:#999;border-radius:4px;"></div>
-		</div>
-	</div>
-</div>
-<div id="footer" class="footer">
-	<div style="position:absolute;top:10px;right:20px;">
-		<label class="input-label" style="color:#fff;">
-			<input marker="zip" type="checkbox" name="zip" checked="checked" />压缩
-		</label>
-		<a marker="combo-all" class="button">合并全部</a>
-	</div>
-</div>
-<script type="text/javascript" src="lib/sea.js"></script>
-<script type="text/javascript" src="script/index.js"></script>
+<div id="menu"></div>
+<div id="nav"></div>
+<div id="content"></div>
+<script type="text/javascript"
+		src="lib/sea.js"
+		data-main="http://127.0.0.1:10000/seajs/script/index/index.js"></script>
+<script type="text/javascript">
+	seajs.config({
+	    base: '/seajs/',
+	    charset: 'utf-8',
+	    // 系统脚本地址
+	    sysScriptBase: "/seajs/base/"
+	});
+</script>
 </body>
 </html>

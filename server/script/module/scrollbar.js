@@ -1,7 +1,7 @@
 /**
  * 自定义滚动条
  */
-var $ = require("../lib/jquery");
+var $ = require("lib/jquery.js");
 function ScrollBar(opts){
 	this.init(opts);
 }
@@ -59,12 +59,12 @@ ScrollBar.prototype = {
 		var boxHeight = this.box.offsetHeight,
 			contentHeight = this.content.offsetHeight;
 		if(contentHeight > boxHeight){
+			this.scrollBarBox.style.display = "";
 			var scrollBarBoxHeight = this.scrollBarBox.offsetHeight;
 			this.scrollBarBtn.style.height = Math.max(this.minHeight, boxHeight * scrollBarBoxHeight / contentHeight) + "px";
-			this.scrollBarBtn.style.display = "";
 			this.zoom = scrollBarBoxHeight / contentHeight;
 		}else{
-			this.scrollBarBtn.style.display = "none";
+			this.scrollBarBox.style.display = "none";
 			this.zoom = 1;
 		}
 	},

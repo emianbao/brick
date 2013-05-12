@@ -8,6 +8,10 @@ module.exports = {
 		"project1": {
 			path: "E:/github/brick/test/project1/script",
 			port: 20000
+		},
+		"ihezhu": {
+			path: "D:/work/j.hzstatic.com/js",
+			port: 30000
 		}
 	}
 }

@@ -1,0 +1,44 @@
+.menu{
+	height: 30px;
+	line-height: 30px;
+	background-color:#eee;
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#eee));
+	border-bottom:1px solid #ddd;
+	padding: 0 20px;
+}
+.menu a{
+	float: left;
+	line-height: 30px;
+	padding: 0 20px;
+	color: #333;
+	cursor: pointer;
+}
+.menu a:hover,
+.menu .current{
+	background-color:#fff;
+	padding: 0 19px;
+	border:1px solid #ddd;
+	border-width: 0 1px;
+	border-bottom:1px solid #fff;
+}
+.menu-item{
+	position: absolute;
+	border:1px solid #ddd;
+	border-top-width: 0;
+	background-color: #fff;
+	z-index: 5000;
+}
+.menu-item a{
+	display: block;
+	line-height: 30px;
+	width: 100px;
+	padding-left: 10px;
+	cursor: pointer;
+}
+.menu-item a:hover{
+	background-color:#f6f6f6;
+}
+.menu-item a.current{
+	color: #f90;
+	background-color: #fff;
+}

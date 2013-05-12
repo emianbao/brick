@@ -1,0 +1,12 @@
+<$css= ./menu.css $>
+<$js= ./menu.js $>
+
+<div class="menu">
+	<a marker="file">文件</a>
+	<a marker="project">项目</a>
+</div>
+<div class="menu-item" marker="file-box" style="display:none;">
+	<a value="add">添加项目</a>
+	<a value="new">新建项目</a>
+</div>
+<div class="menu-item" marker="project-box" style="display:none;"></div>

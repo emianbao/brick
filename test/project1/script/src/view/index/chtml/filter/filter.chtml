@@ -1,6 +1,6 @@
 <$js= ./filter.js $>
 <$css= ./filter.css $>
-<div>
-	<div marker='price'>价格</div>
-	<div marker="type">房型</div>
+<div class="filter">
+	<a marker='price'>价格</a>
+	<a marker="type">房型</a>
 </div>

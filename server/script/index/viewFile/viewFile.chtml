@@ -1,0 +1,7 @@
+<$css= ./viewFile.css $>
+<$js= ./viewFile.js $>
+
+<div class="view-file">
+	<div marker="src-tree"></div>
+	<div marker="file-content"></div>
+</div>

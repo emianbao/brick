@@ -1,0 +1,8 @@
+<$css= ./nav.css $>
+<$js= ./nav.js $>
+
+<div marker="box" class="nav">
+	<a value="combo">合并压缩</a>
+	<a value="deps">依赖查看</a>
+	<a value="view-file">文件浏览</a>
+</div>

@@ -51,8 +51,8 @@ function createFlags(flags) {
 
 // 检测事件数据存放包是否初始化
 function checkEventPackage(){
-	if(!this.newEvent.eventPackage){
-		this.newEvent.eventPackage = {
+	if(!this.eventPackage){
+		this.eventPackage = {
 			// 执行环境
 			context: this,
 			// 事件
@@ -80,7 +80,7 @@ function sort(list){
 // 触发事件（内部）
 // 返回执行结果数组
 function triggerEvent(eventName, argus){
-	var eventPackage = this.newEvent.eventPackage,
+	var eventPackage = this.eventPackage,
 		fns = eventPackage.events[eventName],
 		context = eventPackage.context,
 		results = [],
@@ -107,7 +107,7 @@ module.exports = {
 	setEventContext: function(context){
 		checkEventPackage.call(this);
 		
-		this.newEvent.eventPackage.context = context;
+		this.eventPackage.context = context;
 	},
 	/**
 		新建事件
@@ -115,7 +115,7 @@ module.exports = {
 	newEvent: function(eventName, flags){
 		checkEventPackage.call(this);
 
-		var eventPackage = this.newEvent.eventPackage;
+		var eventPackage = this.eventPackage;
 		// 设置事件特性
 		eventPackage.flags[eventName] = flags = flags ? (flagsCache[flags] || createFlags(flags)) : {};
 		// 初始化单次执行状态
@@ -135,7 +135,7 @@ module.exports = {
 	addEvent: function(eventName, fn, level){
 		fn.level = level || 0;
 
-		var eventPackage = this.newEvent.eventPackage,
+		var eventPackage = this.eventPackage,
 			events = eventPackage.events,
 			flags = eventPackage.flags[eventName],
 			context = eventPackage.context;
@@ -162,7 +162,7 @@ module.exports = {
 	*/
 	addEventAsync: function(eventName, fn, onlyLast, level){
 		// 异步事件处理程序
-		var cache = this.newEvent.eventPackage.handlerCache,
+		var cache = this.eventPackage.handlerCache,
 			handler;
 
 		return handler = this.addEvent(eventName, function(){
@@ -207,7 +207,7 @@ module.exports = {
 	removeEvent: function(){
 		var eventPackage;
 		
-        if (!(eventPackage = this.newEvent.eventPackage)){
+        if (!(eventPackage = this.eventPackage)){
         	return false;
         }
 
@@ -273,7 +273,7 @@ module.exports = {
 	triggerEvent: function(eventName){
 		var argus = Array.prototype.slice.call(arguments, 1),
 			run = true,
-			eventPackage = this.newEvent.eventPackage,
+			eventPackage = this.eventPackage,
 			flags = eventPackage.flags[eventName];
 
 		if(flags["once"]){

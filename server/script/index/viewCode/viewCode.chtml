@@ -1,0 +1,11 @@
+<$css= ./viewCode.css $>
+<$js= ./viewCode.js $>
+
+<div class="view-code">
+	<div marker="code" class="code">
+		<pre marker="code-content" class="js"></pre>
+	</div>
+	<div marker="scrollbar" class="scrollbar">
+		<div marker="scrollbar-btn" class="scrollbar-btn"></div>
+	</div>
+</div>

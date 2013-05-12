@@ -14,7 +14,7 @@ module.exports = function(placeNode){
 		(doc.head || doc.getElementsByTagName("head")[0]).appendChild(styleNode);
 	<$ } $>
 
-	var node = base.toNode('<$= GlobalData.html.replace(/\\/g, "\\\\").replace(/'/g, "\\'") $>'),
+	var node = base.toNode('<$= GlobalData.html.replace(/\r\n/g, "").replace(/\\/g, "\\\\").replace(/'/g, "\\'") $>'),
 		_childNodes = node.childNodes,
 		childNodes = [];
 	for(var i = 0, l = _childNodes.length; i < l; i ++){
@@ -25,6 +25,7 @@ module.exports = function(placeNode){
 	return new js({
 		node: childNodes,
 		styleNode: styleNode,
+		placeNode: placeNode,
 		nodes: base.parseNode(childNodes)
 	});
 };

@@ -1,0 +1,54 @@
+.view-code{
+	position: absolute;
+	left: 300px;
+	top: 0;
+	right: 0;
+	height: 100%;
+}
+.view-code .code{
+	height: 100%;
+	overflow: hidden;
+}
+.view-code .js,
+.view-code .css,
+.view-code .chtml,
+.view-code .tpl,
+.view-code .txt{
+	padding: 10px;
+	color: #fff;
+	font-family: Yahei,Consolas;
+	word-break: break-word;
+}
+.view-code .scrollbar{
+	position:absolute;
+	top:0;
+	right:0;
+	width:8px;
+	height:100%;
+	background-color:#444;
+}
+.view-code .scrollbar-btn{
+	position:absolute;
+	left:0;
+	top:0px;
+	width:8px;
+	background-color:#999;
+	border-radius:4px;
+}
+
+
+.view-code .comments{
+	color: #999;
+}
+.view-code .string{
+	color: #f36;
+}
+.keyword{
+	color: #9cf;
+}
+.operator{
+	color: #fc0;
+}
+.regex{
+	color: #6f9;
+}
