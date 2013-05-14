@@ -13,7 +13,8 @@ var Page = {
 };
 
 // 加载项目列表
-Page.menuMod.loadProject(Object.keys(require("config.js").projects));
+//Page.menuMod.loadProject(Object.keys(require("config.js").projects));
+Page.menuMod.loadProject(["project1", "ihezhu"]);
 // 项目切换
 Page.menuMod.addEvent("project", function(projectName){
 	//console.log("project: " + projectName);

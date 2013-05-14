@@ -54,6 +54,36 @@ ScrollBar.prototype = {
 			_this.refreshHeight();
 			_this.refreshTop();
 		});
+
+
+		var mousedown = false,
+			offsetTop,
+			maxTop;
+		$(this.scrollBarBtn).mousedown(function(e){
+			mousedown = true;
+			offsetTop = this.offsetTop - e.pageY;
+			maxTop = _this.scrollBarBox.offsetHeight - this.offsetHeight;
+
+			$(document.body).addClass("no-select");
+		});
+		$(document).mousemove(function(e){
+			if(mousedown){
+				var top = offsetTop + e.pageY;
+				if(top < 0)
+					top = 0;
+				if(top > maxTop)
+					top = maxTop;
+				_this.scrollBarBtn.style.top = top + "px";
+				_this.refreshContentTop();
+			}
+		});
+		$(document).mouseup(function(e){
+			if(mousedown){
+				mousedown = false;
+
+				$(document.body).removeClass("no-select");
+			}
+		});
 	},
 	refreshHeight: function(){
 		var boxHeight = this.box.offsetHeight,
@@ -71,6 +101,11 @@ ScrollBar.prototype = {
 	refreshTop: function(){
 		if(this.zoom < 1){
 			this.scrollBarBtn.style.top = this.box.scrollTop * this.zoom + "px";
+		}
+	},
+	refreshContentTop: function(){
+		if(this.zoom < 1){
+			this.box.scrollTop = this.scrollBarBtn.offsetTop / this.zoom;
 		}
 	}
 };

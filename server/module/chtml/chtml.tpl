@@ -6,12 +6,11 @@ var css = require("<$= GlobalData.css $>");
 <$ } $>
 module.exports = function(placeNode){
 	var styleNode;
-	<$ if(GlobalData.css){ $>
+	<$ if(GlobalData.css && false){ $>
 		var doc = base.document(placeNode);
-		styleNode = doc.createElement("style");
-		styleNode.type = "text/css";
-		styleNode.innerHTML = css;
-		(doc.head || doc.getElementsByTagName("head")[0]).appendChild(styleNode);
+		styleNode = doc.createElement("div");
+		styleNode.innerHTML = '<br /><style type="text/css">' + css + '</style>';
+		styleNode = doc.getElementsByTagName("head")[0].appendChild(styleNode.lastChild);
 	<$ } $>
 
 	var node = base.toNode('<$= GlobalData.html.replace(/\r\n/g, "").replace(/\\/g, "\\\\").replace(/'/g, "\\'") $>'),

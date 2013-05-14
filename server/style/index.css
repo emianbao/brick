@@ -12,3 +12,9 @@ body{padding: 0;margin: 0;}
 	background-position: 10px 50%;
 }
 .folder-close .folder-content{display: none;}
+
+.no-select{
+	-moz-user-select: none;  
+	-webkit-user-select: none;  
+	-ms-user-select: none;
+}

@@ -23,7 +23,7 @@ module.exports = content.extend({
 			_this.currentFile = file;
 
 			var ext = file.match(/\.(\w+)$/);
-			if(ext && (ext = ext[1]) && /js|css|chtml|tpl|txt/.test(ext)){
+			if(ext && (ext = ext[1]) && /js|css|chtml|tpl|html|txt/.test(ext)){
 				_this.loadFile(file, function(code){
 					_this.viewCode.view(code, ext);
 				});
@@ -47,6 +47,7 @@ module.exports = content.extend({
 		// 请求文件内容
 		$.ajax({
 			url: "http://127.0.0.1:10000/ajax/file.ihezhu?projectName=" + this.projectName + "&file=" + file,
+			dataType: "text",
 			success: function(code){
 				callback(code);
 			}
