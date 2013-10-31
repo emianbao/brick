@@ -1,18 +1,16 @@
 /**
 	事件特性：
 
-	记忆(memroy)：
+	全部记忆(memory-all)：
 		先触发事件，后绑定事件
-		场景：domready、地图连续滚动滚轮
-	记忆最后一次(memoryLast)：
+		场景：运动轨迹
+	记忆最后一次(memory)：
 		先触发事件，后绑定事件，只处理最后一次触发操作
 		场景：城市切换
 	只能触发一次(once)：
 		场景：domready
 	遇到返回值为false，停止之后的处理程序(stopOnFalse):
 		场景：一系列表单验证
-	触发后清空之前绑定(clear):
-		场景：
 	返回值列表(results):
 		场景：submit
 	处理程序排序(level):
@@ -33,9 +31,8 @@ var flagsCache = {};
 /*
 	flags:
 		memory
-		memoryLast
+		memory-all
 		once
-		clear
 		stopOnFalse
 		sort
 */
@@ -66,7 +63,9 @@ function checkEventPackage(){
 			// 单次执行事件执行状态
 			onceRun: {},
 			// 记忆事件执行记录
-			memoryCache: {}
+			memoryCache: {},
+			// 执行状态
+			status: {}
 		};
 	}
 }
@@ -83,21 +82,50 @@ function triggerEvent(eventName, argus){
 	var eventPackage = this.eventPackage,
 		fns = eventPackage.events[eventName],
 		context = eventPackage.context,
+		status = eventPackage.status[eventName],
 		results = [],
 		i, l;
 	if(fns){
+		//l = fns.length;
+		status.firing = true;
+		status.length = fns.length;
+		status.callback = [];
+
 		if(eventPackage.flags[eventName]["stopOnFalse"]){
-			for(i = 0, l = fns.length; i < l; i ++){
+			for( ; status.index < status.length; status.index ++){
 				// 遇到返回值为false的，停止执行后续处理
-				if((results[i] = fns[i].apply(context, argus)) === false){
+				if(results.push(fns[status.index].apply(context, argus)) === false){
 					break;
 				}
 			}
+			l = status.index + 1;
+			for(i = 0; i < l; i ++){
+				if(fns[i].once){
+					fns.splice(i, 1);
+					i --;
+					l --;
+				}
+			}
 		}else{
-			for(i = 0, l = fns.length; i < l; i ++){
-				results[i] = fns[i].apply(context, argus);
+			for(; status.index < status.length; status.index ++){
+				results.push(fns[status.index].apply(context, argus));
+			}
+			l = status.length;
+			for(i = 0; i < l; i ++){
+				if(fns[i].once){
+					fns.splice(i, 1);
+					i --;
+					l --;
+				}
 			}
 		}
+
+		for(i = 0, l = status.callback.length; i < l; i ++){
+			status.callback[i]();
+		}
+
+		status.index = 0;
+		status.firing = false;
 	}
 	return results;
 }
@@ -123,44 +151,76 @@ module.exports = {
 			eventPackage.onceRun[eventName] = true;
 		}
 		// 初始化记忆缓存
-		if(flags["memoryLast"] || flags["memory"]){
+		if(flags["memory"] || flags["memory-all"]){
 			eventPackage.memoryCache[eventName] = [];
 		}
+
+		eventPackage.status[eventName] = {
+			index: 0,
+			length: 0,
+			firing: false,
+			callback: []
+		};
 	},
 	/** 添加事件
 		eventName  事件名
 		fn  事件处理函数
 		level  事件执行顺序 level值越大越优先执行
 	*/
-	addEvent: function(eventName, fn, level){
-		fn.level = level || 0;
+	addEvent: function(eventName, fn, level, once){
+		if(!this.eventPackage || !this.eventPackage.flags[eventName])
+			return;
 
 		var eventPackage = this.eventPackage,
 			events = eventPackage.events,
 			flags = eventPackage.flags[eventName],
-			context = eventPackage.context;
+			context = eventPackage.context,
+			status = eventPackage.status[eventName];
 
-		(events[eventName] || (events[eventName] = [])).push(fn);
-		if(flags["sort"]){
-			fn.level = level || 0;
-			sort(events[eventName]);
+		if(flags["memory"] || flags["memory-all"]){
+			var memoryCache = eventPackage.memoryCache[eventName],
+				l = memoryCache.length;
+			if(l){
+				if(once){
+					fn.apply(context, memoryCache[0]);
+					return -1;
+				}
+				for(var i = 0; i < l; i ++){
+					fn.apply(context, memoryCache[i]);
+				}
+			}
 		}
 
-		if(flags["memoryLast"] || flags["memory"]){
-			var memoryCache = eventPackage.memoryCache[eventName];
+		(events[eventName] || (events[eventName] = [])).push(fn);
+		if(status.firing){
+			status.length ++;
+		}
 
-			for(var i = 0, l = memoryCache.length; i < l; i ++){
-				fn.apply(context, memoryCache[i]);
+		if(once){
+			fn.once = true;
+		}
+
+		if(flags["sort"]){
+			fn.level = level || 0;
+			if(status.firing){
+				status.callback.push(function(){
+					sort(events[eventName]);
+				});
+			}else{
+				sort(events[eventName]);
 			}
 		}
 
 		eventPackage.handlerCache[++ eventPackage.handler] = [eventName, fn];
 		return eventPackage.handler;
 	},
+	onceEvent: function(eventName, fn, level){
+		return this.addEvent(eventName, fn, level, true);
+	},
 	/** 添加异步事件
 		onlyLast 异步处理函数执行时，只执行之前最后一次事件触发
 	*/
-	addEventAsync: function(eventName, fn, onlyLast, level){
+	addEventAsync: function(eventName, fn, onlyLast, level, once){
 		// 异步事件处理程序
 		var cache = this.eventPackage.handlerCache,
 			handler;
@@ -196,7 +256,10 @@ module.exports = {
 				result.set(fn.apply(_this, argus));
 			}, 1);
 			return result;
-		}, level);
+		}, level, once);
+	},
+	onceEventAsync: function(eventName, fn, onlyLast, level){
+		return this.addEventAsync(eventName, fn, onlyLast, level, true);
 	},
 	/** 移除事件
 		1、number  移除事件句柄等于number的事件
@@ -213,6 +276,7 @@ module.exports = {
 
         var events = eventPackage.events,
         	cache = eventPackage.handlerCache,
+        	status,
         	argus0 = arguments[0],
         	argus0type = typeof argus0,
         	argus1 = arguments[1],
@@ -228,6 +292,9 @@ module.exports = {
         // 通过事件名和处理函数移除事件
         else if (argus0type === "string" && argus1type === "function") {
             fns = events[argus0];
+            if(!fns){
+            	return false;
+            }
             for(i = 0, l = fns.length; i < l; i ++){
             	if(argus1 === fns[i]){
             		fns.splice(i, 1);
@@ -241,6 +308,15 @@ module.exports = {
             		break;
             	}
             }
+            status = eventPackage.status[argus0];
+            if(status.firing){
+            	if(i < status.length){
+            		status.length --;
+            	}
+            	if(i <= status.index){
+            		status.index --;
+            	}
+            }
         }
         // 移除事件名等于eventName的所有事件
         else if (argus0type === "string" && argus1type === "undefined") {
@@ -251,26 +327,23 @@ module.exports = {
             		delete cache[key];
             	}
             }
-            // 移除触发记录（由于移除整个事件情况比较少，事件状态占用内存比较少，所以其他事件状态不做移除，只移除内存占用较多的触发记录）
-            var flags = eventPackage.flags[argus0];
-            if(flags["memory"] || flags["memoryLast"]){
-            	delete eventPackage.memoryCache[argus0];
+            status = eventPackage.status[argus0];
+            if(status.firing){
+            	status.length = status.index = 0;
             }
         }
         // 移除所有事件
         else if (argus0type === "undefined") {
-            eventPackage.events = {};
-            // 移除句柄缓存
-            eventPackage.cache = {};
-            // 移除事件特性
-            //eventPackage.flags = {};
-            // 移除触发记录
-            //eventPackage.memoryCache = {};
+            for(key in eventPackage.flags){
+            	arguments.callee.call(this, key);
+            }
         }
 	},
 	// 触发事件
 	// 返回执行结果数组
 	triggerEvent: function(eventName){
+		if(!this.eventPackage || !this.eventPackage.flags[eventName])
+			return;
 		var argus = Array.prototype.slice.call(arguments, 1),
 			run = true,
 			eventPackage = this.eventPackage,
@@ -280,16 +353,16 @@ module.exports = {
 			if(eventPackage.onceRun[eventName]){
 				delete eventPackage.onceRun[eventName];
 			
-				if(flags["memoryLast"] || flags["memory"]){
+				if(flags["memory"] || flags["memory-all"]){
 					eventPackage.memoryCache[eventName] = [argus];
 				}
 			}else{
 				run = false;
 			}
 		}else{
-			if(flags["memoryLast"]){
+			if(flags["memory"]){
 				eventPackage.memoryCache[eventName] = [argus];
-			}else if(flags["memory"]){
+			}else if(flags["memory-all"]){
 				eventPackage.memoryCache[eventName].push(argus);
 			}
 		}
@@ -299,11 +372,16 @@ module.exports = {
 			result = triggerEvent.call(this, eventName, argus);
 		}
 
-
-		if(flags["clear"]){
-			this.removeEvent(eventName);
-		}
-
 		return result;
+	},
+	// 清除事件记忆
+	clearEventMemory: function(eventName){
+		var memoryCache = this.eventPackage.memoryCache;
+		if(eventName){
+			memoryCache[eventName] = [];
+		}else{
+			for(eventName in memoryCache)
+				memoryCache[eventName] = [];
+		}
 	}
 };

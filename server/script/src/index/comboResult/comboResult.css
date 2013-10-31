@@ -1,0 +1,55 @@
+.combo-result{
+	position: absolute;
+	left: 300px;
+	right: 0;
+	bottom: 0;
+	height: 198px;
+	border-top:2px solid #666;
+}
+.combo-result .file-list{
+	height: 100%;
+	overflow: hidden;
+}
+.combo-result .file-list-content{
+	padding: 10px;
+}
+.combo-result .scrollbar{
+	position:absolute;
+	top:0;
+	right:0;
+	width:8px;
+	height:100%;
+	background-color:#444;
+}
+.combo-result .scrollbar-btn{
+	position:absolute;
+	left:0;
+	top:0px;
+	width:8px;
+	background-color:#999;
+	border-radius:4px;
+}
+
+.ok,
+.fail{
+	line-height: 24px;
+	padding-left: 10px;
+}
+.ok:hover,
+.fail:hover{
+	background: #282828;
+}
+.ok{
+	color: #0b0;
+}
+.fail{
+	color: #f30;
+}
+.fail div{
+	line-height: 24px;
+	color:#999;
+	padding-left: 30px;
+}
+.fail span{
+	color: #fff;
+}

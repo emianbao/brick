@@ -1,0 +1,10 @@
+<$css= ./nav.css $>
+<$js= ./nav.js $>
+
+<div marker="box" class="nav">
+	<a value="combo">合并压缩</a>
+	<a value="deps">依赖查看</a>
+	<a value="view-file">文件浏览</a>
+	<a value="unit-test">全文搜索</a>
+	<a value="unit-test">单元测试</a>
+</div>

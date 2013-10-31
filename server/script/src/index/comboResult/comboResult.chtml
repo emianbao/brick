@@ -1,0 +1,11 @@
+<$css= ./comboResult.css $>
+<$js= ./comboResult.js $>
+
+<div class="combo-result">
+	<div marker="file-list" class="file-list">
+		<div marker="file-list-content" class="file-list-content"></div>
+	</div>
+	<div marker="scrollbar" class="scrollbar">
+		<div marker="scrollbar-btn" class="scrollbar-btn"></div>
+	</div>
+</div>

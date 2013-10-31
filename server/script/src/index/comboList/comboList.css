@@ -1,0 +1,37 @@
+.combo-list{
+	position: absolute;
+	left: 300px;
+	top: 0;
+	right: 0;
+	bottom: 200px;
+}
+.combo-list .file-list{
+	height: 100%;
+	overflow: hidden;
+}
+.combo-list .file-list-content{
+	padding: 10px;
+}
+.combo-list .scrollbar{
+	position:absolute;
+	top:0;
+	right:0;
+	width:8px;
+	height:100%;
+	background-color:#444;
+}
+.combo-list .scrollbar-btn{
+	position:absolute;
+	left:0;
+	top:0px;
+	width:8px;
+	background-color:#999;
+	border-radius:4px;
+}
+.combo-list .file{
+	background-image: url(/pic/file-999.png);
+	color: #ccc;
+}
+.combo-list .file:hover{
+	background-color: #222;
+}

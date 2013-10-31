@@ -14,7 +14,7 @@ var server = http.createServer(function (request, response) {
 	// 请求路径
 	var pathName = url.parse(request.url).pathname;
 	pathName = path.normalize(pathName.replace(/\.\./g, ""));
-	if(pathName === "/"){
+	if(pathName === "\\"){
 		pathName += serverConfig.default;
 	}
 	// 是否为seajs

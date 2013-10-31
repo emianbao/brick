@@ -17,13 +17,14 @@ function _combo(file, projectConfig, needZip){
 		};
 	}
 
-	var code = combo(_files, projectConfig);
+	var result = combo(_files, projectConfig);
+	var code = result.code;
 	if(needZip){
 		code = zip(code);
 	}
 	// 写入目标文件
 	fs.writeFileSync(releaseScript, code, 'utf8');
-	return true;
+	return result.failList;
 }
 
 module.exports = function(request, callback){

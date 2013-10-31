@@ -7,7 +7,7 @@ module.exports = function(config){
 		// 请求路径
 		var pathName = url.parse(request.url).pathname;
 		pathName = path.normalize(pathName.replace(/\.\./g, ""));
-		if(pathName === "/"){
+		if(pathName === "\\"){
 			pathName += config.default;
 		}
 		// 是否为seajs

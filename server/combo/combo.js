@@ -12,7 +12,8 @@ var comboHeader = ["(function(){",
 					"		},",
 					"		module = {",
 					"			exports:{}",
-					"		};"].join("\n"),
+					"		};",
+					"	require.async = function(uris, fn){}"].join("\n"),
 	comboFooter = ["	Fan.modules = modules;",
 				"})()"].join("\n"),
 	fileHeader = ["(function(){",
@@ -39,7 +40,7 @@ module.exports = function(files, projectConfig){
 		srcRoot = projectConfig.root + projectConfig.srcScriptRoot,
 		hander = 1;
 
-	function loadMod(filenames){
+	function loadMod(filenames, sourceFile){
 		var pathname,
 			pathtype,
 			_code,
@@ -70,26 +71,44 @@ module.exports = function(files, projectConfig){
 					_code = program(pathname, status);
 					if(_code){
 						deps = depsParse.get(_code, pathname);
-						_depsStatus = loadMod(deps);
+						_depsStatus = loadMod(deps, pathname);
 						_code = depsParse.replace(_code, _depsStatus);
 						code.push("modules['" + status[pathname] + "'] = " + fileHeader + _code.replace(BOMHeader, "") + fileFooter);
 					}else{
-						failList.push(pathname);
-						console.log("fail load:" + pathname);
+						failList.push({
+							file: pathname,
+							sourceFile: sourceFile
+						});
+						//console.log("fail load:" + pathname);
 					}
 				}else{
-					failList.push(pathname);
-					console.log("fail ext:" + pathname);
+					failList.push({
+						file: pathname,
+						sourceFile: sourceFile
+					});
+					//console.log("fail ext:" + pathname);
 				}
 			}
 		}
 		return depsStatus;
 	}
 
-	loadMod(files);
+	loadMod(files, "root");
+
+	var addressHash = [];
+	for(var address in status){
+		addressHash.push([address, status[address]]);
+	}
+	addressHash.sort();
+	for(var i = 0, l = addressHash.length; i < l; i ++){
+		addressHash[i] = "// " + addressHash[i][0] + " : " + addressHash[i][1];
+	}
 
 	code.unshift(comboHeader);
 	code.push(comboFooter);
 	// 合并源码
-	return code.join("\n");
+	return {
+		code: addressHash.join("\n") + "\n" + code.join("\n"),
+		failList: failList
+	};
 };
